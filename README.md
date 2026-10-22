@@ -39,7 +39,7 @@
 
 | Desktop | 3D Graph | Patterns | Settings |
 |---------|----------|----------|----------|
-| <img src="assets/screenshot-2.png" width="280"> | <img src="assets/screenshot-3.png" width="280"> | <img src="assets/screenshot-4.png" width="280"> | <img src="assets/screenshot-5.png" width="280"> |
+| <img src="assets/screenshot-2.png" width="400"> | <img src="assets/screenshot-3.png" width="400"> | <img src="assets/screenshot-4.png" width="400"> | <img src="assets/screenshot-5.png" width="400"> |
 
 ---
 
