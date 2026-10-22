@@ -1,4 +1,4 @@
-# 🌙 DreamScape
+# 🌙 DreamScape — AI Dream Journal (Local & Private)
 
 <div align="center">
 
