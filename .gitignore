@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv-linux/
+venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Datos locales (sueños = datos íntimos: NUNCA versionar)
+data/
+*.db
+*.sqlite
+*.sqlite3
+backend/data/
+chroma/
+
+# Entorno (secretos)
+.env
+.env.local
+*.local
+
+# Frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Docs internos del proyecto (se quedan en disco, NO van al repo público)
+AGENTS.md
+PENDIENTES.md
+HISTORIAL_SESIONES.md
+
+# Logs
+*.log
+uvicorn.*.log

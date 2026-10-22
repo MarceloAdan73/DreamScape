@@ -1,0 +1,54 @@
+# DreamScape completo en un comando:  docker compose up -d --build
+# App: http://localhost:8080  ·  API: http://localhost:8001
+#
+# Ollama corre en la HOST (tu máquina, con tu GPU), no en el contenedor:
+# el backend lo alcanza vía host.docker.internal.
+# Requisito en el host: OLLAMA_HOST=0.0.0.0 (para que el contenedor lo vea)
+# y, en Linux/WSL, un firewall que permita el puerto 11434 desde la subred del
+# contenedor. En Docker Desktop (Windows/Mac) alcanza con OLLAMA_HOST=0.0.0.0.
+
+services:
+  backend:
+    build: ./backend
+    container_name: dreamscape-backend
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_CHAT_MODEL: ${OLLAMA_CHAT_MODEL:-qwen2.5-coder:1.5b}
+      OLLAMA_EMBED_MODEL: ${OLLAMA_EMBED_MODEL:-nomic-embed-text}
+      CORS_ORIGINS: '["http://localhost:8080","http://localhost:5173"]'
+    ports:
+      - "8001:8000" # 8001 en host: no pisa al uvicorn de desarrollo (8000)
+    volumes:
+      - ./backend/data:/app/data # DB + Chroma en el host, sobreviven a rebuilds
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Linux; en Docker Desktop ya existe
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/settings', timeout=5)",
+        ]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: dreamscape-frontend
+    ports:
+      - "8080:80" # 8080 en host: no pisa al vite de desarrollo (5173)
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,218 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/space-grotesk";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-dream-violet: var(--dream-violet);
+  --color-dream-cyan: var(--dream-cyan);
+  --color-dream-pink: var(--dream-pink);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-heading: var(--font-display);
+  --font-display: 'Space Grotesk Variable', sans-serif;
+  --font-sans: 'Geist Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * DreamScape — dark-first onírico.
+ * Paleta nocturna índigo/violeta con acentos cian y rosa.
+ * `:root` ya es oscuro: la app nunca depende de `prefers-color-scheme`.
+ */
+:root,
+.dark {
+  --radius: 1rem;
+
+  --background: oklch(0.16 0.025 279);
+  --foreground: oklch(0.97 0.01 285);
+
+  --card: oklch(0.207 0.03 281);
+  --card-foreground: oklch(0.97 0.01 285);
+
+  --popover: oklch(0.19 0.032 281);
+  --popover-foreground: oklch(0.97 0.01 285);
+
+  --primary: oklch(0.64 0.2 288);
+  --primary-foreground: oklch(0.98 0.01 288);
+
+  --secondary: oklch(0.27 0.035 283);
+  --secondary-foreground: oklch(0.97 0.01 285);
+
+  --muted: oklch(0.26 0.03 282);
+  --muted-foreground: oklch(0.72 0.035 285);
+
+  --accent: oklch(0.29 0.04 285);
+  --accent-foreground: oklch(0.97 0.01 285);
+
+  --destructive: oklch(0.62 0.22 20);
+  --destructive-foreground: oklch(0.98 0.01 20);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.64 0.2 288);
+
+  --chart-1: oklch(0.64 0.2 288);
+  --chart-2: oklch(0.75 0.14 205);
+  --chart-3: oklch(0.72 0.19 340);
+  --chart-4: oklch(0.8 0.15 85);
+  --chart-5: oklch(0.7 0.13 160);
+
+  --dream-violet: oklch(0.64 0.2 288);
+  --dream-cyan: oklch(0.78 0.13 205);
+  --dream-pink: oklch(0.74 0.19 340);
+
+  --sidebar: oklch(0.19 0.032 281);
+  --sidebar-foreground: oklch(0.97 0.01 285);
+  --sidebar-primary: oklch(0.64 0.2 288);
+  --sidebar-primary-foreground: oklch(0.98 0.01 288);
+  --sidebar-accent: oklch(0.29 0.04 285);
+  --sidebar-accent-foreground: oklch(0.97 0.01 285);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.64 0.2 288);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--color-ring);
+    @apply border-border outline-ring/50;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply bg-background text-foreground antialiased;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  /* Superficie de vidrio esmerilado: el sello visual de la app. */
+  .glass {
+    background-color: color-mix(in oklch, var(--card) 72%, transparent);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+  }
+  .glass-strong {
+    background-color: color-mix(in oklch, var(--popover) 86%, transparent);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+  }
+  /* Fondo aurora para el marco en escritorio. */
+  .aurora {
+    background-color: oklch(0.1 0.02 280);
+    background-image:
+      radial-gradient(60% 45% at 15% 0%, color-mix(in oklch, var(--dream-violet) 40%, transparent), transparent 70%),
+      radial-gradient(55% 40% at 90% 12%, color-mix(in oklch, var(--dream-cyan) 28%, transparent), transparent 70%),
+      radial-gradient(70% 55% at 50% 110%, color-mix(in oklch, var(--dream-pink) 30%, transparent), transparent 72%);
+  }
+  /* Halo onírico dentro de la app. */
+  .dream-glow {
+    background-image:
+      radial-gradient(80% 50% at 50% -10%, color-mix(in oklch, var(--dream-violet) 22%, transparent), transparent 70%),
+      radial-gradient(60% 45% at 100% 15%, color-mix(in oklch, var(--dream-cyan) 14%, transparent), transparent 70%);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Ilustración onírica: estrellas que titilan y figuras que flotan. */
+  .ds-twinkle {
+    animation: ds-twinkle 3.6s ease-in-out infinite;
+  }
+  .ds-twinkle-delay-1 {
+    animation-delay: 0.9s;
+  }
+  .ds-twinkle-delay-2 {
+    animation-delay: 1.8s;
+  }
+  .ds-twinkle-delay-3 {
+    animation-delay: 2.6s;
+  }
+  .ds-floaty {
+    animation: ds-floaty 7s ease-in-out infinite;
+  }
+}
+
+@keyframes ds-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes ds-floaty {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-twinkle,
+  .ds-floaty {
+    animation: none;
+  }
+}
